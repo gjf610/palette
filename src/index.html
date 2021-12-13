@@ -6,12 +6,56 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>灵觉画板</title>
+    <link rel="stylesheet" href="./static/logo/logo.css">
+    <script src="./static/icon/iconfont.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="canvas.js"></script>
+    <script src="move.js"></script>
 </head>
 
 <body>
-    <canvas id="canvas" width="100" height="100"></canvas>
-    <script src="./main.js"></script>
+    <div id="topNav">
+        <div id="logo"><i class="web-font">灵觉画板</i></div>
+        <div id="nav">
+            <span id="penColor">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-huaban"></use>
+                </svg>
+            </span>
+            <div class="penColorChose" id="penColorChose">
+                <div class="colorRed"></div>
+                <div class="colorGreen"></div>
+                <div class="colorBlue"></div>
+                <div class="colorBlack"></div>
+            </div>
+            <span id="penSize" class="navActive">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-huabi"></use>
+                </svg>
+            </span>
+            <div class="penSizeChose" id="penSizeChose">
+                <div class="sSize"></div>
+                <div class="mSize"></div>
+                <div class="lSize"></div>
+            </div>
+            <span id="penEraser">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-xiangpica"></use>
+                </svg>
+            </span>
+            <span id="penClear">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-qingchu"></use>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <div class="boardWrapper">
+
+        <canvas id="canvas"></canvas>
+    </div>
+
 </body>
 
 </html>
