@@ -18,7 +18,7 @@ body{
     box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0.3em 0.3em 1em rgba(0, 0, 0, 0.7);
 }
 
-#topNav {
+.topNav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -26,13 +26,7 @@ body{
     align-items: flex-end;
 }
 
-
-
-#logo img {
-    width: 402px;
-}
-
-#nav {
+.nav {
     background: rgb(184, 184, 184);
     height: 50px;
     width: 250px;
@@ -44,18 +38,18 @@ body{
     margin-right: 30px;
 }
 
-#nav span i {
+.nav span i {
     font-size: 40px;
 }
 
-#nav span {
+.nav span {
     font-size: 20px;
     display: block;
     flex-grow: 1;
     cursor: pointer;
 }
 
-#nav .navActive {
+.nav .navActive {
     box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0.3em 0.3em 1em rgba(0, 0, 0, 0.5);
 }
 
@@ -140,15 +134,13 @@ body{
 }
 
 @media(max-width:500px) {
-    #logo {
+    .logo {
         width: 370px;
         height: 60px;
         overflow: hidden;
     }
-    #logo img {
-        width: 372px;
-    }
-    #nav {
+
+    .nav {
         background: rgb(184, 184, 184);
         height: 50px;
         width: 200px;

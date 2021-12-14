@@ -8,7 +8,7 @@
     url('webfont.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
     url('webfont.svg#webfont') format('svg'); /* iOS 4.1- */
 }
-#logo {
+.logo {
     width: 400px;
     height: 60px;
     overflow: hidden;

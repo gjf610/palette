@@ -1,15 +1,19 @@
 import startMove from "./move.js";
 
+function getPos(ev) { //获取鼠标位置封装成函数
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+    return { x: ev.pageX + scrollLeft - 20, y: ev.pageY + scrollTop - 70 }; //JSON形式返回
+}
+function is_touch_device() {
+    return 'ontouchstart' in window;
+}
 window.onload = function () {
     let canvas = document.getElementById('canvas');
     canvas.width = document.documentElement.clientWidth;
     canvas.height = document.documentElement.clientHeight;
 
-    function getPos(ev) { //获取鼠标位置封装成函数
-        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-        return { x: ev.pageX + scrollLeft - 20, y: ev.pageY + scrollTop - 70 }; //JSON形式返回
-    }
+
 
     var ctx = canvas.getContext('2d');
     ctx.fillStyle = 'black';
@@ -20,9 +24,7 @@ window.onload = function () {
     let isPainting = false;
     let last = null;
     //判断是否是触屏设备
-    function is_touch_device() {
-        return 'ontouchstart' in window;
-    }
+
 
     function draw(x1, y1, x2, y2) {
         ctx.beginPath();
@@ -60,14 +62,12 @@ window.onload = function () {
         }
     }
     //navBar
-    let topNav = document.querySelector('#topNav');
-    let navBar = topNav.querySelector('#nav');
-    let colorBtn = navBar.querySelector('#penColor');
-    let colorChoseDiv = navBar.querySelector('#penColorChose');
-    let sizeBtn = navBar.querySelector('#penSize');
-    let sizeChoseDiv = navBar.querySelector('#penSizeChose');
-    let penEraser = navBar.querySelector('#penEraser');
-    let clearBtn = navBar.querySelector('#penClear');
+    let colorBtn = document.querySelector('#penColor');
+    let colorChoseDiv = document.querySelector('#penColorChose');
+    let sizeBtn = document.querySelector('#penSize');
+    let sizeChoseDiv = document.querySelector('#penSizeChose');
+    let penEraser = document.querySelector('#penEraser');
+    let clearBtn = document.querySelector('#penClear');
     document.onclick = () => {
         console.log(startMove)
         startMove(colorChoseDiv, {
