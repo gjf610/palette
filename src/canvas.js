@@ -11,10 +11,14 @@ const m = {
         isPainting: false,
         last: null,
         isTouchDevice: 'ontouchstart' in window,
+        curColor: '',
     }
 }
 const v = {
     canvas: document.getElementById('canvas'),
+    colorChoseDiv: document.querySelector('#penColorChose'),
+    sizeBtn: document.querySelector('#penSize'),
+    sizeChoseDiv: document.querySelector('#penSizeChose'),
     ctx: null,
     init() {
         this.canvas.width = document.documentElement.clientWidth;
@@ -33,6 +37,7 @@ const v = {
     }
 }
 const c = {
+    curColor: '',
     mousedown: (e) => {
         const { x, y } = getPos(e);
         m.data.isPainting = true;
@@ -56,10 +61,56 @@ const c = {
         v.draw(m.data.last[0], m.data.last[1], e.touches[0].clientX - 20, e.touches[0].clientY - 70);
         m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
     },
-
+    events: {
+        "body": 'closePad',
+        "#penColor": 'openColorPad',
+        "#penSize": 'openSizePad',
+        "#penEraser": 'openEraser',
+        "#penClear": 'clearPalette',
+    },
+    bindEvents: () => {
+        for (let key in c.events) {
+            if (c.events.hasOwnProperty(key)) {
+                const value = c.events[key]
+                document.querySelector(key).onclick = c[value]
+            }
+        }
+    },
+    closePad: () => {
+        startMove(v.colorChoseDiv, {
+            height: 0
+        });
+        startMove(v.sizeChoseDiv, {
+            height: 0
+        });
+    },
+    openColorPad: (e) => {
+        startMove(v.colorChoseDiv, {
+            height: 160
+        });
+        e.cancelBubble = true;
+    },
+    openSizePad: (e) => {
+        v.ctx.strokeStyle = m.curColor;
+        v.sizeBtn.classList.add('navActive');
+        penEraser.classList.remove('navActive');
+        startMove(v.sizeChoseDiv, {
+            height: 140
+        });
+        e.cancelBubble = true;
+    },
+    openEraser: () => {
+        penEraser.classList.add('navActive');
+        v.sizeBtn.classList.remove('navActive');
+        v.ctx.strokeStyle = '#fff';
+    },
+    clearPalette: () => {
+        v.ctx.clearRect(0, 0, v.canvas.width, v.canvas.height);
+    },
     init() {
         v.init()
-        let curColor = v.ctx.strokeStyle;
+
+        m.curColor = v.ctx.strokeStyle
         if (m.data.isTouchDevice) {
             //触摸设备
             v.canvas.addEventListener('touchstart', c.touchstart)
@@ -70,71 +121,33 @@ const c = {
             v.canvas.addEventListener('mousemove', c.mousemove)
             v.canvas.addEventListener('mouseup', c.mouseup)
         }
-        //navBar
-        let colorBtn = document.querySelector('#penColor');
-        let colorChoseDiv = document.querySelector('#penColorChose');
-        let sizeBtn = document.querySelector('#penSize');
-        let sizeChoseDiv = document.querySelector('#penSizeChose');
-        let penEraser = document.querySelector('#penEraser');
-        let clearBtn = document.querySelector('#penClear');
-        document.onclick = () => {
-            console.log(startMove)
-            startMove(colorChoseDiv, {
-                height: 0
-            });
-            startMove(sizeChoseDiv, {
-                height: 0
-            });
-        }
-        colorBtn.onclick = function (e) {
-            startMove(colorChoseDiv, {
-                height: 140
-            });
-            e.cancelBubble = true;
-        }
-        sizeBtn.onclick = function (e) {
-            v.ctx.strokeStyle = curColor;
-            sizeBtn.classList.add('navActive');
-            penEraser.classList.remove('navActive');
-            startMove(sizeChoseDiv, {
-                height: 140
-            });
-            e.cancelBubble = true;
-        }
-        penEraser.onclick = function (e) {
-            penEraser.classList.add('navActive');
-            sizeBtn.classList.remove('navActive');
-            v.ctx.strokeStyle = '#fff';
-        }
-        clearBtn.onclick = function () {
-            v.ctx.clearRect(0, 0, v.canvas.width, v.canvas.height);
-        }
+        c.bindEvents()
 
         //颜色的切换
-        let redBtn = colorChoseDiv.querySelector('.colorRed');
-        let greenBtn = colorChoseDiv.querySelector('.colorGreen');
+        let redBtn = document.querySelector('.colorRed');
+        let greenBtn = document.querySelector('.colorGreen');
 
-        let blueBtn = colorChoseDiv.querySelector('.colorBlue');
-        let blackBtn = colorChoseDiv.querySelector('.colorBlack');
+        let blueBtn = document.querySelector('.colorBlue');
+        let blackBtn = document.querySelector('.colorBlack');
         redBtn.onclick = function () { //切换红色
             v.ctx.strokeStyle = 'rgb(255,64,0)';
-            curColor = v.ctx.strokeStyle;
+            m.curColor = v.ctx.strokeStyle;
         }
         greenBtn.onclick = function () {//切换绿色
             v.ctx.strokeStyle = 'rgb(74,222,149)'
         }
         blueBtn.onclick = function () { //切换蓝色
             v.ctx.strokeStyle = 'rgb(0,68,255)';
-            curColor = v.ctx.strokeStyle;
+            m.curColor = v.ctx.strokeStyle;
         }
         blackBtn.onclick = function () { //切换黑色
             v.ctx.strokeStyle = '#000';
-            curColor = v.ctx.strokeStyle;
+            m.curColor = v.ctx.strokeStyle;
         }
         //尺寸的切换
-        let sSizeBtn = sizeChoseDiv.querySelector('.sSize');
-        let mSizeBtn = sizeChoseDiv.querySelector('.mSize');
-        let lSizeBtn = sizeChoseDiv.querySelector('.lSize');
+        let sSizeBtn = document.querySelector('.sSize');
+        let mSizeBtn = document.querySelector('.mSize');
+        let lSizeBtn = document.querySelector('.lSize');
         sSizeBtn.onclick = function () {
             v.ctx.lineWidth = 7;
         }
