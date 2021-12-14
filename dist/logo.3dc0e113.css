@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'webfont';
+    font-display: swap;
+    src: url('webfont.da68d652.eot'); /* IE9 */
+    src: url('webfont.da68d652.eot?#iefix') format('embedded-opentype'), 
+    url('webfont.29ae4f52.woff2') format('woff2'),
+    url('webfont.5d4e8c12.woff') format('woff'), 
+    url('webfont.1801e576.ttf') format('truetype'), 
+    url('webfont.a575172c.svg#webfont') format('svg'); /* iOS 4.1- */
+}
+.logo {
+    width: 400px;
+    height: 60px;
+    overflow: hidden;
+}
+.web-font {
+    font-family: "webfont" !important;
+    font-size: 60px;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*# sourceMappingURL=logo.3dc0e113.css.map */

@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.toolbar {
+    margin-right: 36px;
+    border-radius: 9px;
+    width: 240px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    background: rgb(184, 184, 184);
+    position: relative;
+}
+
+.toolbar span {
+    cursor: pointer;
+    line-height: 15px;
+}
+
+.itemActive {
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0.3em 0.3em 1em rgba(0, 0, 0, 0.5);
+}
+.penChose {
+    position: absolute;
+    top: 45px;
+    width: 40px;
+    height: 0px;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background: rgb(184, 184, 184);
+    z-index: 0;
+}
+.penColorChose {
+    left: 15px;
+}
+
+.penColorChose div {
+    margin: 10px 0;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.penSizeChose {
+    left: 72px;
+}
+.penSizeChose div {
+    background: #000;
+    margin: 10px 0;
+    height: 10px;
+    border-radius: 50%;
+    cursor: pointer;    
+}
+
+
+@media(max-width:500px) {
+    .nav {
+        margin: 0 5px;
+    }
+    .toolbar {
+        margin-right: 5px;
+    }
+    .web-font {
+        font-size: 40px;
+        line-height: 58px;
+    }
+}
+.boardWrapper {
+    overflow: hidden;
+    width: 95%;
+    height: 85vh;
+    margin: auto auto;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0.3em 0.3em 1em rgba(0, 0, 0, 0.7);
+}
+#canvas {
+    display: block;
+}
+
+/*# sourceMappingURL=style.57969d2c.css.map */

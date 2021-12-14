@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CH">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灵觉画板</title>
+    <link rel="stylesheet" href="logo.3dc0e113.css">
+    <script src="iconfont.ecac64df.js"></script>
+    <link rel="stylesheet" href="style.57969d2c.css">
+    <script src="move.dd230015.js"></script>
+</head>
+
+<body>
+    <div></div>
+    <div class="nav">
+        <div class="logo"><i class="web-font">灵觉画板</i></div>
+        <div class="toolbar">
+            <span id="penColor">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-huaban"></use>
+                </svg>
+            </span>
+            <div class="penChose penColorChose" id="penColorChose">
+                <div class="colorRed" style="background-color: rgb(255,64,0);"></div>
+                <div class="colorGreen" style="background-color: rgb(74,222,149);"></div>
+                <div class="colorBlue" style="background-color: rgb(0,68,255);"></div>
+                <div class="colorBlack" style="background-color: rgb(0,0,0);"></div>
+            </div>
+            <span id="penSize">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-huabi"></use>
+                </svg>
+            </span>
+            <div class="penChose penSizeChose" id="penSizeChose">
+                <div class="sSize" style="width:10px;height: 10px;"></div>
+                <div class="mSize" style="width:15px;height: 15px;"></div>
+                <div class="lSize" style="width:20px;height: 20px;"></div>
+            </div>
+            <span id="penEraser">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-xiangpica"></use>
+                </svg>
+            </span>
+            <span id="penClear">
+                <svg class="icon" width="45px" height="45px" aria-hidden="true">
+                    <use xlink:href="#icon-qingchu"></use>
+                </svg>
+            </span>
+        </div>
+    </div>
+
+    <div class="boardWrapper">
+        <canvas id="canvas"></canvas>
+    </div>
+    <script src="main.14e36556.js"></script>
+
+</body>
+
+</html>
