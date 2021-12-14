@@ -17,6 +17,8 @@ const v = {
     canvas: document.getElementById('canvas'),
     ctx: null,
     init() {
+        this.canvas.width = document.documentElement.clientWidth;
+        this.canvas.height = document.documentElement.clientHeight;
         this.ctx = v.canvas.getContext('2d')
         this.ctx.fillStyle = 'black';
         this.ctx.strokeStyle = '#000';
@@ -31,41 +33,42 @@ const v = {
     }
 }
 const c = {
+    mousedown: (e) => {
+        const { x, y } = getPos(e);
+        m.data.isPainting = true;
+        m.data.last = [x, y];
+    },
+    mousemove: (e) => {
+        const { x, y } = getPos(e);
+        if (m.data.isPainting) {
+            v.draw(m.data.last[0], m.data.last[1], x, y);
+            m.data.last = [x, y];
+        }
+    },
+    mouseup: () => {
+        m.data.isPainting = false
+    },
+    touchstart: (e) => {
+        m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
+    },
+    touchmove: (e) => {
+        e.preventDefault();
+        v.draw(m.data.last[0], m.data.last[1], e.touches[0].clientX - 20, e.touches[0].clientY - 70);
+        m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
+    },
+
     init() {
-        v.canvas.width = document.documentElement.clientWidth;
-        v.canvas.height = document.documentElement.clientHeight;
         v.init()
-
         let curColor = v.ctx.strokeStyle;
-
         if (m.data.isTouchDevice) {
             //触摸设备
-            v.canvas.ontouchstart = (e) => {
-                m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
-            }
-            v.canvas.ontouchmove = (e) => {
-                e.preventDefault();
-                v.draw(m.data.last[0], m.data.last[1], e.touches[0].clientX - 20, e.touches[0].clientY - 70);
-                m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
-            }
+            v.canvas.addEventListener('touchstart', c.touchstart)
+            v.canvas.addEventListener('touchmove', c.touchmove)
         } else {
             //鼠标
-            v.canvas.onmousedown = (e) => {
-                var pos = getPos(e);
-                m.data.isPainting = true;
-                m.data.last = [pos.x, pos.y];
-            }
-            v.canvas.onmousemove = (e) => {
-                var pos = getPos(e);
-
-                if (m.data.isPainting) {
-                    v.draw(m.data.last[0], m.data.last[1], pos.x, pos.y);
-                    m.data.last = [pos.x, pos.y];
-                }
-            }
-            v.canvas.onmouseup = () => {
-                m.data.isPainting = false
-            }
+            v.canvas.addEventListener('mousedown', c.mousedown)
+            v.canvas.addEventListener('mousemove', c.mousemove)
+            v.canvas.addEventListener('mouseup', c.mouseup)
         }
         //navBar
         let colorBtn = document.querySelector('#penColor');
