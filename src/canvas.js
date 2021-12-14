@@ -1,17 +1,16 @@
 import startMove from "./move.js";
 
-function getPos(ev) { //获取鼠标位置封装成函数
-    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
-    return { x: ev.pageX + scrollLeft - 20, y: ev.pageY + scrollTop - 70 }; //JSON形式返回
-}
-
 const m = {
     data: {
         isPainting: false,
         last: null,
         isTouchDevice: 'ontouchstart' in window,
         curColor: '',
+    },
+    getPos(ev) { //获取鼠标位置封装成函数
+        var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        var scrollLeft = document.documentElement.scrollLeft || document.body.scrollLeft;
+        return { x: ev.pageX + scrollLeft - 20, y: ev.pageY + scrollTop - 70 }; //JSON形式返回
     }
 }
 const v = {
@@ -37,14 +36,13 @@ const v = {
     }
 }
 const c = {
-    curColor: '',
     mousedown: (e) => {
-        const { x, y } = getPos(e);
+        const { x, y } = m.getPos(e);
         m.data.isPainting = true;
         m.data.last = [x, y];
     },
     mousemove: (e) => {
-        const { x, y } = getPos(e);
+        const { x, y } = m.getPos(e);
         if (m.data.isPainting) {
             v.draw(m.data.last[0], m.data.last[1], x, y);
             m.data.last = [x, y];
@@ -54,12 +52,14 @@ const c = {
         m.data.isPainting = false
     },
     touchstart: (e) => {
-        m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
+        const { clientX, clientY } = e.touches[0]
+        m.data.last = [clientX - 20, clientY - 70]
     },
     touchmove: (e) => {
         e.preventDefault();
-        v.draw(m.data.last[0], m.data.last[1], e.touches[0].clientX - 20, e.touches[0].clientY - 70);
-        m.data.last = [e.touches[0].clientX - 20, e.touches[0].clientY - 70]
+        const { clientX, clientY } = e.touches[0]
+        v.draw(m.data.last[0], m.data.last[1], clientX - 20, clientY - 70);
+        m.data.last = [clientX - 20, clientY - 70]
     },
     events: {
         "body": 'closePad',
@@ -99,16 +99,16 @@ const c = {
     },
     openSizePad: (e) => {
         v.ctx.strokeStyle = m.curColor;
-        v.sizeBtn.classList.add('navActive');
-        penEraser.classList.remove('navActive');
+        v.sizeBtn.classList.add('itemActive');
+        penEraser.classList.remove('itemActive');
         startMove(v.sizeChoseDiv, {
             height: 140
         });
         e.cancelBubble = true;
     },
     openEraser: () => {
-        penEraser.classList.add('navActive');
-        v.sizeBtn.classList.remove('navActive');
+        penEraser.classList.add('itemActive');
+        v.sizeBtn.classList.remove('itemActive');
         v.ctx.strokeStyle = '#fff';
     },
     clearPalette: () => {
@@ -120,8 +120,9 @@ const c = {
         m.curColor = backgroundColor;
     },
     setWidth: (e) => {
-        const { width } = e.target.dataset
-        v.ctx.lineWidth = width;
+        const { width } = e.target.style
+        const widthNum = parseInt(width.slice(0, 2));
+        v.ctx.lineWidth = widthNum;
     },
     init() {
         v.init()
@@ -140,5 +141,3 @@ const c = {
     }
 }
 c.init()
-
-
