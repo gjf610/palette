@@ -1,0 +1,14 @@
+{
+  "name": "palette",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "rm -rf dist && parcel build src/index.html --no-minify --public-url ./"
+  },
+  "repository": {
+    "type": "git"
+  },
+  "author": "",
+  "license": "ISC"
+}
