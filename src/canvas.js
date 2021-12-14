@@ -71,6 +71,9 @@ const c = {
         ".colorGreen": 'setColor',
         ".colorBlue": 'setColor',
         ".colorBlack": 'setColor',
+        ".sSize": 'setWidth',
+        ".mSize": 'setWidth',
+        ".lSize": 'setWidth',
     },
     bindEvents: () => {
         for (let key in c.events) {
@@ -116,6 +119,10 @@ const c = {
         v.ctx.strokeStyle = backgroundColor;
         m.curColor = backgroundColor;
     },
+    setWidth: (e) => {
+        const { width } = e.target.dataset
+        v.ctx.lineWidth = width;
+    },
     init() {
         v.init()
         m.curColor = v.ctx.strokeStyle
@@ -130,19 +137,6 @@ const c = {
             v.canvas.addEventListener('mouseup', c.mouseup)
         }
         c.bindEvents()
-        //尺寸的切换
-        let sSizeBtn = document.querySelector('.sSize');
-        let mSizeBtn = document.querySelector('.mSize');
-        let lSizeBtn = document.querySelector('.lSize');
-        sSizeBtn.onclick = function () {
-            v.ctx.lineWidth = 7;
-        }
-        mSizeBtn.onclick = function () {
-            v.ctx.lineWidth = 12;
-        }
-        lSizeBtn.onclick = function () {
-            v.ctx.lineWidth = 17;
-        }
     }
 }
 c.init()
