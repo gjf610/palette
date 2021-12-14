@@ -67,6 +67,10 @@ const c = {
         "#penSize": 'openSizePad',
         "#penEraser": 'openEraser',
         "#penClear": 'clearPalette',
+        ".colorRed": 'setColor',
+        ".colorGreen": 'setColor',
+        ".colorBlue": 'setColor',
+        ".colorBlack": 'setColor',
     },
     bindEvents: () => {
         for (let key in c.events) {
@@ -107,9 +111,13 @@ const c = {
     clearPalette: () => {
         v.ctx.clearRect(0, 0, v.canvas.width, v.canvas.height);
     },
+    setColor: (e) => {
+        const { backgroundColor } = e.target.style
+        v.ctx.strokeStyle = backgroundColor;
+        m.curColor = backgroundColor;
+    },
     init() {
         v.init()
-
         m.curColor = v.ctx.strokeStyle
         if (m.data.isTouchDevice) {
             //触摸设备
@@ -122,28 +130,6 @@ const c = {
             v.canvas.addEventListener('mouseup', c.mouseup)
         }
         c.bindEvents()
-
-        //颜色的切换
-        let redBtn = document.querySelector('.colorRed');
-        let greenBtn = document.querySelector('.colorGreen');
-
-        let blueBtn = document.querySelector('.colorBlue');
-        let blackBtn = document.querySelector('.colorBlack');
-        redBtn.onclick = function () { //切换红色
-            v.ctx.strokeStyle = 'rgb(255,64,0)';
-            m.curColor = v.ctx.strokeStyle;
-        }
-        greenBtn.onclick = function () {//切换绿色
-            v.ctx.strokeStyle = 'rgb(74,222,149)'
-        }
-        blueBtn.onclick = function () { //切换蓝色
-            v.ctx.strokeStyle = 'rgb(0,68,255)';
-            m.curColor = v.ctx.strokeStyle;
-        }
-        blackBtn.onclick = function () { //切换黑色
-            v.ctx.strokeStyle = '#000';
-            m.curColor = v.ctx.strokeStyle;
-        }
         //尺寸的切换
         let sSizeBtn = document.querySelector('.sSize');
         let mSizeBtn = document.querySelector('.mSize');
