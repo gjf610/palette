@@ -1,4 +1,3 @@
-import startMove from "./move.js";
 
 const m = {
     data: {
@@ -84,26 +83,18 @@ const c = {
         }
     },
     closePad: () => {
-        startMove(v.colorChoseDiv, {
-            height: 0
-        });
-        startMove(v.sizeChoseDiv, {
-            height: 0
-        });
+        v.colorChoseDiv.classList.remove('planActive')
+        v.sizeChoseDiv.classList.remove('planActive')
     },
     openColorPad: (e) => {
-        startMove(v.colorChoseDiv, {
-            height: 160
-        });
+        v.colorChoseDiv.classList.add('planActive')
         e.cancelBubble = true;
     },
     openSizePad: (e) => {
         v.ctx.strokeStyle = m.curColor;
         v.sizeBtn.classList.add('itemActive');
         penEraser.classList.remove('itemActive');
-        startMove(v.sizeChoseDiv, {
-            height: 140
-        });
+        v.sizeChoseDiv.classList.add('planActive');
         e.cancelBubble = true;
     },
     openEraser: () => {
