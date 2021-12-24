@@ -117,72 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"K6Ki":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-// 完美运动框架 利用json进行多物体多属性同时运动
-// 演变过程：
-// startMove(iTarget)                  运动框架
-// startMove(obj,iTarget)              多物体
-// startMove(obj,attr,iTarget)         任意值
-// startMove(obj,attr,iTarget,fnEnd)   前一次运动结束后触发函数
-// startMove(obj,json,fnEnd)           完美运动框架
-function getStyle(obj, name) {
-  if (obj.currentStyle) {
-    return obj.currentStyle[name];
-  } else {
-    return getComputedStyle(obj, false)[name];
-  }
-} //startMove(oDiv, {width: 400, height: 400})
-
-
-var startMove = function startMove(obj, json, fnEnd) {
-  clearInterval(obj.timer);
-  obj.timer = setInterval(function () {
-    var bStop = true; //假设：所有值都已经到了
-
-    for (var attr in json) {
-      var cur = 0; //解决offset的bug
-
-      if (attr == 'opacity') {
-        cur = Math.round(parseFloat(getStyle(obj, attr)) * 100);
-      } else {
-        cur = parseInt(getStyle(obj, attr));
-      }
-
-      var speed = (json[attr] - cur) / 6;
-      speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
-      if (cur != json[attr]) bStop = false; //有某一属性未到达目标值
-
-      if (attr == 'opacity') {
-        obj.style.filter = 'alpha(opacity:' + (cur + speed) + ')';
-        obj.style.opacity = (cur + speed) / 100;
-      } else {
-        obj.style[attr] = cur + speed + 'px';
-      }
-    }
-
-    if (bStop) {
-      clearInterval(obj.timer);
-      if (fnEnd) fnEnd();
-    }
-  }, 30);
-};
-
-var _default = startMove;
-exports.default = _default;
-},{}],"epB2":[function(require,module,exports) {
-"use strict";
-
-var _move = _interopRequireDefault(require("./move.js"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+})({"epB2":[function(require,module,exports) {
 var m = {
   data: {
     isPainting: false,
@@ -281,26 +216,18 @@ var c = {
     }
   },
   closePad: function closePad() {
-    (0, _move.default)(v.colorChoseDiv, {
-      height: 0
-    });
-    (0, _move.default)(v.sizeChoseDiv, {
-      height: 0
-    });
+    v.colorChoseDiv.classList.remove('planActive');
+    v.sizeChoseDiv.classList.remove('planActive');
   },
   openColorPad: function openColorPad(e) {
-    (0, _move.default)(v.colorChoseDiv, {
-      height: 160
-    });
+    v.colorChoseDiv.classList.add('planActive');
     e.cancelBubble = true;
   },
   openSizePad: function openSizePad(e) {
     v.ctx.strokeStyle = m.curColor;
     v.sizeBtn.classList.add('itemActive');
     penEraser.classList.remove('itemActive');
-    (0, _move.default)(v.sizeChoseDiv, {
-      height: 140
-    });
+    v.sizeChoseDiv.classList.add('planActive');
     e.cancelBubble = true;
   },
   openEraser: function openEraser() {
@@ -340,5 +267,5 @@ var c = {
   }
 };
 c.init();
-},{"./move.js":"K6Ki"}]},{},["epB2"], null)
-//# sourceMappingURL=main.14e36556.js.map
+},{}]},{},["epB2"], null)
+//# sourceMappingURL=main.3de56314.js.map

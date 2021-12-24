@@ -44,6 +44,10 @@
     align-items: center;
     background: rgb(184, 184, 184);
     z-index: 0;
+    transition:height .6s ease;
+}
+.planActive{
+    height:160px;
 }
 .penColorChose {
     left: 15px;
@@ -92,4 +96,4 @@
     display: block;
 }
 
-/*# sourceMappingURL=style.57969d2c.css.map */
+/*# sourceMappingURL=style.24601a4c.css.map */
